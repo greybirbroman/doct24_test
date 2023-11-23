@@ -1,0 +1,27 @@
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1800px;
+  padding: 128px 0 28px;
+}
+
+@media screen and (max-width: 1600px) {
+  .wrapper {
+    padding: 98px 50px 28px;
+  }
+}
+
+@media (max-width: 992px) {
+  .wrapper {
+    padding: 38px 20px 38px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    padding: 20px;
+  }
+}

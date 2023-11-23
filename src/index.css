@@ -1,6 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+ul {
+  list-style-type: none;
+}
+
 .gradient {
   height: fit-content;
-  z-index: 3;
+  z-index: 0;
   width: 100%;
   max-width: 640px;
   background-image: radial-gradient(
