@@ -1,21 +1,45 @@
-import styles from './MainPage.module.css'
-import { useState } from 'react';
-import { useGetPostsQuery } from '../../lib/redux/posts/postsSlice';
+import styles from './MainPage.module.css';
+import usePosts from '../../utils/hooks/usePosts';
+import { useGetUsersQuery } from '../../lib/redux/users/usersSlice';
 import paddingWrapper from '../../components/HOC/paddingWrapper';
-import Loader from '../../components/ui/Loader/Loader';
+import { Loader, PaginationSelect, FilterBar } from '../../components/ui';
 import PostsList from '../../components/PostsList/PostsList';
+import usePagePagination from '../../utils/hooks/usePagePagination';
+import { errorMessage } from '../../utils/constants';
+
 
 const MainPage = () => {
-  const [postsLimit, setPostsLimit] = useState(10);
-  const { data: posts, isError, isLoading } = useGetPostsQuery(postsLimit);
+  const { postsLimit, pageSizeOptions, handleSelectPageSize } =
+    usePagePagination();
 
-  console.log(posts);
+  const { isPostsLoading, isPostsError, isPostsFetching, filteredPosts, setFilteredPosts } = usePosts(postsLimit)
 
-  if (isLoading) return <Loader />;
-  if (isError) return console.log('');
+  const {
+    data: users,
+    isError: isUsersError,
+    isLoading: isUsersLoading,
+  } = useGetUsersQuery();
+
+
+  if (isPostsLoading || isUsersLoading) return <Loader />;
+  if (isUsersError || isPostsError) return <div>{errorMessage}</div>;
+
   return (
     <div className={styles.page}>
-      {posts && <PostsList list={posts} />}
+      {filteredPosts && users && 
+      <>
+      <FilterBar list={users}/>
+      <PostsList posts={filteredPosts} users={users} setFilteredPosts={setFilteredPosts}/>
+      </>
+      
+      }
+      {!isPostsFetching && (
+        <PaginationSelect
+          pageSizeOptions={pageSizeOptions}
+          selectedPageSize={postsLimit}
+          onSelectPageSize={handleSelectPageSize}
+        />
+      )}
     </div>
   );
 };

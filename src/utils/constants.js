@@ -1,20 +1,22 @@
-import { Trash, MessagesSquare, FileEdit, Star } from 'lucide-react';
+import {
+  Trash,
+  MessagesSquare,
+  FileEdit,
+  Star,
+  ArrowUpAZ,
+} from 'lucide-react';
 
-export const postIcons = [
+
+export const filterIcons = [
   {
     id: 1,
-    icon: <FileEdit />,
+    icon: <ArrowUpAZ />,
   },
   {
     id: 2,
-    icon: <MessagesSquare />,
-  },
-  {
-    id: 3,
     icon: <Star />,
-  },
-  {
-    id: 4,
-    icon: <Trash />,
-  },
+  }
 ];
+
+export const errorMessage =
+  'Ууупс... Что-то пошло не так, пожалуйста попробуйте еще раз!';

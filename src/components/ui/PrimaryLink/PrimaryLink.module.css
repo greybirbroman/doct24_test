@@ -1,0 +1,25 @@
+.link {
+  padding: 10px;
+  background-color: none;
+  color: #443375;
+  border-radius: 8px;
+  transition: all 0.3s;
+  width: fit-content;
+  font-size: 18px;
+}
+
+.link:hover {
+  background-color: #443375;
+  transition: 0.3s ease-in-out;
+  color: white;
+}
+
+.link:active {
+  background-color: #291b51;
+}
+
+@media screen and (max-width: 550px) {
+  .link {
+    font-size: 16px;
+  }
+}

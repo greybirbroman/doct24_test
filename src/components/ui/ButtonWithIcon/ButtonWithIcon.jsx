@@ -1,8 +1,8 @@
 import styles from './ButtonWithIcon.module.css'
 
-const ButtonWithIcon = ({ children }) => {
+const ButtonWithIcon = ({ id, children, title, onClick, isActive }) => {
   return (
-    <button className={styles.button}>
+    <button id={id} className={`${isActive && styles.button_active} ${styles.button}`} onClick={onClick}>{title}
       {children}
     </button>
   )

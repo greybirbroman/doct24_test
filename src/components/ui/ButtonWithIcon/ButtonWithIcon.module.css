@@ -1,6 +1,23 @@
 .button {
+  width: fit-content;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+  z-index: 1000;
 }
 
 .button:hover {
   cursor: pointer;
+  color:white;
+  background-color: #443375;
+}
+
+.button_active,
+.button_active > svg {
+  background-color: #443375;
+  color: white;
 }
