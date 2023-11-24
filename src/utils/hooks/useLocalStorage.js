@@ -7,10 +7,12 @@ const useLocalStorage = (key, initialValue) => {
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(storedValue));
+    if (storedValue !== undefined) {
+      localStorage.setItem(key, JSON.stringify(storedValue));
+    }
   }, [key, storedValue]);
 
-  return [storedValue, setStoredValue];
+  return [storedValue || initialValue, setStoredValue];
 };
 
 export { useLocalStorage };
