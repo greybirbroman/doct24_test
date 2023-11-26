@@ -12,7 +12,9 @@
 }
 
 .filterBar__select {
-    padding: 5px;
+    padding: 10px;
     outline: none;
     cursor: pointer;
+    border: 2px solid #443375;
+    border-radius: 8px;
 }

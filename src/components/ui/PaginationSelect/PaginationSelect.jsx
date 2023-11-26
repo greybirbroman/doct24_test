@@ -1,13 +1,13 @@
-import React from 'react';
+import styles from './PaginationSelect.module.css'
 
 const PaginationSelect = ({ pageSizeOptions, selectedPageSize, onSelectPageSize }) => {
   return (
     <div>
-      <label htmlFor="pageSize">Show:</label>
       <select
         id="pageSize"
         value={selectedPageSize}
         onChange={(e) => onSelectPageSize(Number(e.target.value))}
+        className={styles.pagination__select}
       >
         {pageSizeOptions.map((pageSize) => (
           <option key={pageSize} value={pageSize}>

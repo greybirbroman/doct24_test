@@ -1,8 +1,8 @@
 import styles from './ButtonWithIcon.module.css'
 
-const ButtonWithIcon = ({ id, children, title, onClick, isActive, disabled }) => {
+const ButtonWithIcon = ({ id, children, title, onClick, isActive, disabled, customClass }) => {
   return (
-    <button id={id} className={`${isActive && styles.button_active} ${styles.button}`} onClick={onClick} disabled={disabled}>{title}
+    <button id={id} className={`${isActive && styles.button_active} ${styles.button} ${customClass}`} onClick={onClick} disabled={disabled}>{title}
       {children}
     </button>
   )

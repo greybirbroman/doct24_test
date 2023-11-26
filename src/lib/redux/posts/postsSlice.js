@@ -1,40 +1,28 @@
-import { apiSlice } from '../api/apiSlice';
-import { POSTS, COMMENTS } from '../../../utils/routes';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const postsSlice = apiSlice.injectEndpoints({
+const getStorageData = (key, defaultValue) => {
+  const storedValue = localStorage.getItem(key);
+  return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+};
 
-  endpoints: (builder) => ({
-    getPosts: builder.query({
-      query: (limit) => `${POSTS}?_limit=${limit}`,
-    }),
-    getPostById: builder.query({
-      query: (id) => `${POSTS}/${id}`,
+const initialState = {
+  posts: getStorageData('localPosts', []),
+  currentPostId: null,
+};
 
-    }),
-    getPostCommentsById: builder.query({
-      query: (id) => `${POSTS}/${id}/${COMMENTS}`,
-    }),
-    deletePost: builder.mutation({
-      query: (id) => ({
-        url: `${POSTS}/${id}`,
-        method: 'DELETE',
-      }),
-    }),
-    getPostsTotalCount: builder.query({
-      query: () => `${POSTS}?_page=1`,
-      transformResponse: async (_, meta) => {
-        const total = meta.response.headers.get('x-total-count');
-        return total;
-      },
-    }),
-  }),
+const postsReducer = createSlice({
+  name: 'posts',
+  initialState,
+  reducers: {
+    setPosts: (state, action) => {
+      state.posts = action.payload;
+    },
+    setCurrentPostId: (state, action) => {
+      state.currentPostId = action.payload;
+    },
+  },
 });
 
-export const {
-  useGetPostsQuery,
-  useGetPostCommentsByIdQuery,
-  useGetPostByIdQuery,
-  useGetPostsTotalCountQuery,
-  useLazyGetPostsQuery,
-  useDeletePostMutation,
-} = postsSlice;
+export const { setPosts, setCurrentPostId } = postsReducer.actions;
+
+export default postsReducer.reducer;

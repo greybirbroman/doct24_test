@@ -1,4 +1,4 @@
-import { useGetPostsTotalCountQuery } from '../../lib/redux/posts/postsSlice';
+import { useGetPostsTotalCountQuery } from '../../lib/redux/posts/postsApiSlice';
 import { useLocalStorage } from './useLocalStorage';
 
 const usePagePagination = () => {

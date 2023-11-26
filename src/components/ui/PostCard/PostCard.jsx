@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import styles from './PostCard.module.css';
 import ButtonWithIcon from '../ButtonWithIcon/ButtonWithIcon';
-
+import { useModalContext } from '../../../utils/context/ModalContext';
 import { USERS } from '../../../utils/routes';
 import PrimaryLink from '../PrimaryLink/PrimaryLink';
 import { Edit, MessagesSquare, Star, Trash } from 'lucide-react';
-import { useGetPostCommentsByIdQuery } from '../../../lib/redux/posts/postsSlice';
+import { useGetPostCommentsByIdQuery } from '../../../lib/redux/posts/postsApiSlice';
 import Loader from '../Loader/Loader';
-// import usePosts from '../../../utils/hooks/usePosts';
+import { useDispatch } from 'react-redux';
 
-const PostCard = ({ post, isDeleting, deletePost }) => {
+import { setCurrentPostId } from '../../../lib/redux/posts/postsSlice';
+
+const PostCard = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
   const [postCommentsId, setPostCommentsId] = useState(null);
   const [selected, setSelected] = useState(false);
@@ -18,7 +20,14 @@ const PostCard = ({ post, isDeleting, deletePost }) => {
     useGetPostCommentsByIdQuery(postCommentsId, {
       skip: !postCommentsId,
     });
-  // const { handleDeletePost, isDeleting } = usePosts();
+
+  const { openModalConfirm } = useModalContext();
+  const dispatch = useDispatch();
+
+  const handlePrepareDeletion = () => {
+    openModalConfirm();
+    dispatch(setCurrentPostId(id));
+  };
 
   const handleSelectPost = () => {
     setSelected((prev) => !prev);
@@ -53,8 +62,7 @@ const PostCard = ({ post, isDeleting, deletePost }) => {
             <ButtonWithIcon
               id='delete'
               children={<Trash />}
-              onClick={() => deletePost(id)}
-              disabled={isDeleting}
+              onClick={handlePrepareDeletion}
             />
           </li>
         </ul>
